@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+  
+    "name": "Auto.Tabs - Machine Learning Tab manager",
+    "description": "CS279r Tab Manager that uses Tensorflow.js's universal sentence encoder to group tabs by title.",
+    "version": "1.0.0",
+    "short_name" : "Auto.Tabs!",
+    "action": {
+      "default_icon": "SplitLogo.png",
+      "default_popup": "popup.html",
+      "default_title": "Auto.Tabs"
+    },
+    "icons":
+    {
+       "128": "SplitLogo.png"
+    },
+
+    "permissions": [
+      "tabs",
+      "storage"
+    ],
+    "commands": {
+      "_execute_browser_action": {
+        "description": "Activate extension"
+      },
+      "split-up": {
+        "description": "Organize tabs by similarity!"
+      }
+    }
+  }

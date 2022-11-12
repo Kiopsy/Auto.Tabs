@@ -1,0 +1,54 @@
+body {
+  overflow-x:hidden;
+  width : 180px;
+  padding-top : 15px;
+  padding-bottom: 15px;
+  padding-left : 5px;
+  padding-right: 5px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 75%;
+}
+
+tr {
+  width: 100%;
+}
+
+td {
+  display: table-cell;
+  vertical-align: inherit;
+}
+
+p {
+  padding-top: 5px;
+}
+
+.screen-name {
+  /* padding: 2; */
+  /* width: 100%;
+  height: 100%; */
+  padding-top: 5;
+  overflow:auto;
+  fill: white;
+  stroke-width:2;
+  stroke:#77a6f7;
+}
+
+.rectangle {
+  margin: 3px;
+  margin-top: -8px;
+}
+
+.screen-name:hover {
+  fill: #303C6C;
+  stroke-width:2;
+  stroke:#77a6f7;
+}
+
+.number-label {
+    display: inline-block;
+    width: 2em;
+    border-right: 1px solid #DDD;
+    margin-right: 5px;
+    height: 37px;
+    vertical-align: top;
+}

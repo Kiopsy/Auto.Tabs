@@ -1,0 +1,99 @@
+/* main container */
+.main-container {
+    width: 250px;
+    height: 160px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 75%;
+}
+
+header 
+{
+    text-align: left;
+    font-weight: bold;
+    font-size: 115%;
+}
+
+
+#autoGroupBtn {
+    color: white;
+    background-color: #26619C;
+    width: 90%;
+    text-align: center;
+    border: none;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    display: block;
+    cursor: pointer;
+}
+
+#auto:hover {
+    color: white;
+    background-color: #303C6C;
+    width: 90%;
+    text-align: center;
+    border: none;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    display: block;
+    cursor: pointer;
+}
+
+#onLoading
+{
+    display: none;
+}
+
+.spinner {
+    margin-left: 93px;
+    margin-top: 53px;
+    animation: rotator 1.8s linear infinite;
+}
+
+@keyframes rotator {
+    0% {
+        transform: rotate(0deg);
+   }
+    100% {
+        transform: rotate(270deg);
+   }
+}
+
+#path {
+    margin: auto;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.8s ease-in-out infinite, colors 7.2s ease-in-out infinite;
+}
+@keyframes colors {
+    0% {
+        stroke: #4285f4;
+   }
+    25% {
+        stroke: #de3e35;
+   }
+    50% {
+        stroke: #f7c223;
+   }
+    75% {
+        stroke: #1b9a59;
+   }
+    100% {
+        stroke: #4285f4;
+   }
+}
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 100;
+   }
+    50% {
+        stroke-dashoffset: 25;
+        transform: rotate(135deg);
+   }
+    100% {
+        stroke-dashoffset: 100;
+        transform: rotate(450deg);
+   }
+}

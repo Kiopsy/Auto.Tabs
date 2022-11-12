@@ -1,0 +1,24 @@
+{
+  "name": "splitscreen",
+  "version": "1.0.0",
+  "description": "Using Tensorflow.js to organize tabs and windows",
+  "scripts": {
+    "copyHTML": "copy src/*.html dist/",
+    "copyManifest": "copy src/manifest.json dist/",
+    "copyImages": "copy -r src/images dist/",
+    "copyCSS": "copy src/*.css dist/",
+    "copy": "npm run copyManifest && npm run copyHTML && npm run copyImages && npm run copyCSS",
+    "build:parcel": "parcel build src/*.html src/*.js --public-url ./ && npm run copy"
+  },
+  "author": "Victor Goncalves",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow-models/universal-sentence-encoder": "^1.3.3",
+    "@tensorflow/tfjs": "^4.0.0"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "parcel": "^2.7.0",
+    "process": "^0.11.10"
+  }
+}
