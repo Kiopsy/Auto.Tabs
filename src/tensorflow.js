@@ -8,11 +8,7 @@ var tabDict = {}
 
 async function analyzeSentences(){
 
-  let onOpen = document.getElementById("onOpen");
-  let onLoading = document.getElementById("onLoading");
-
-  onOpen.setAttribute("style", "display: none");
-  onLoading.setAttribute("style", "display: block; width: 100%; height: 100%");
+  setLoadingScreen();
 
   let queryOptions = { currentWindow: true };
   let tabs = await chrome.tabs.query(queryOptions);
@@ -27,7 +23,16 @@ async function analyzeSentences(){
   list_sentences = tabTitles;
 
   console.log(tabTitles);
-  get_similarity(tabTitles);
+  let groups = get_similarity(tabTitles);
+
+  for (let i in groups) {
+    let separateWords = [];
+    for (let j in groups[i]) {
+
+    }
+  }
+
+  createChromeGroups(groups)
 }
 
 function get_embeddings(list_sentences, callback) {
@@ -122,30 +127,10 @@ async function get_similarity(list_sentences){
     let cosine_similarity_m = cosine_similarity_matrix(embeddings.arraySync());
 
     let groups = form_groups(cosine_similarity_m);
-
-    var createData = {type: "normal", state: "maximized"};
-    var winId;
-    chrome.windows.getCurrent(function (win) {
-      winId = win.id;
-    });
-
-    for(let i in groups){
-      console.log("group:" + i);
-      let tabIds= [];
-      for(let j in groups[i]){
-        tabIds.push(tabDict[list_sentences[ groups[i][j] ]]);
-
-        console.log(groups[i][j], list_sentences[ groups[i][j] ])
-      }
-      console.log(tabIds);
-      const groupId = await chrome.tabs.group({createProperties: {windowId: winId}, tabIds: tabIds});
-    }
-
-    await updateLogData();
-    window.close();
+    return groups;
   };
 
-  let embeddings = await get_embeddings(list_sentences, callback.bind(this));
+  return await get_embeddings(list_sentences, callback.bind(this));
 }
 
 // Storing data using Chrome's storage API for user study purposes
@@ -172,6 +157,37 @@ async function updateLogData(){
       console.log('Value is set to ' + totalAccesses);
     });
   });
+}
+
+async function createChromeGroups(groups) {
+  var createData = {type: "normal", state: "maximized"};
+    var winId;
+    chrome.windows.getCurrent(function (win) {
+      winId = win.id;
+    });
+
+    for(let i in groups) {
+      console.log("group:" + i);
+      let tabIds= [];
+      for(let j in groups[i]){
+        tabIds.push(tabDict[list_sentences[ groups[i][j] ]]);
+
+        console.log(groups[i][j], list_sentences[ groups[i][j] ])
+      }
+      console.log(tabIds);
+      const groupId = await chrome.tabs.group({createProperties: {windowId: winId}, tabIds: tabIds});
+    }
+
+    await updateLogData();
+    window.close();
+}
+
+function setLoadingScreen() {
+  let onOpen = document.getElementById("onOpen");
+  let onLoading = document.getElementById("onLoading");
+
+  onOpen.setAttribute("style", "display: none");
+  onLoading.setAttribute("style", "display: block; width: 100%; height: 100%");
 }
 
 // Set the group button's onClick to analyze the sentences
