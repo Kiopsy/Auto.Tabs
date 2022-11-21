@@ -22,17 +22,8 @@ async function analyzeSentences(){
 
   list_sentences = tabTitles;
 
-  console.log(tabTitles);
+  console.log("Tabs: " + tabTitles);
   let groups = get_similarity(tabTitles);
-
-  for (let i in groups) {
-    let separateWords = [];
-    for (let j in groups[i]) {
-
-    }
-  }
-
-  createChromeGroups(groups)
 }
 
 function get_embeddings(list_sentences, callback) {
@@ -117,6 +108,7 @@ function form_groups(cosine_similarity_matrix){
   }
 
   console.log(return_groups);
+  createChromeGroups(return_groups);
   return return_groups;
 }
 
@@ -137,49 +129,50 @@ async function get_similarity(list_sentences){
 async function updateLogData(){
 
   // number of groupings user has made in total and per day
-  let currentDate = new Date().toJSON().slice(0, 10);
-  var totalAccesses;
-  let dateAccesses;
+  let date = new Date();
+  let dateString = date.toJSON().slice(0, 10);
 
   // get the accesses from chrome.storage
-  await chrome.storage.sync.get(['accesses'], function(result) {
+  await chrome.storage.sync.get(['log'], function(result) {
+    // result is a list of structs
+    let data = result.log;
+
     console.log(result);
-    totalAccesses = result.accesses;
+    console.log(data);
 
-    // add to the number of accesses by 1
-    if (totalAccesses) {
-      totalAccesses += 1;
-    } else {
-      totalAccesses = 1;
-    }
+    let logData = {
+      date: dateString, 
+      tabsOpen: list_sentences.length,
+      time: date.getHours() + ":" + date.getMinutes(),
+    };
 
-    chrome.storage.sync.set({'accesses': totalAccesses}, function() {
-      console.log('Value is set to ' + totalAccesses);
-    });
+    data.push(logData);
+    chrome.storage.sync.set({'log': data}, function() {});
   });
 }
 
 async function createChromeGroups(groups) {
   var createData = {type: "normal", state: "maximized"};
-    var winId;
-    chrome.windows.getCurrent(function (win) {
-      winId = win.id;
-    });
+  var winId;
+  chrome.windows.getCurrent(function (win) {
+    winId = win.id;
+  });
 
-    for(let i in groups) {
-      console.log("group:" + i);
-      let tabIds= [];
-      for(let j in groups[i]){
-        tabIds.push(tabDict[list_sentences[ groups[i][j] ]]);
+  for(let i in groups) {
+    console.log("group:" + i);
+    let tabIds= [];
+    for(let j in groups[i]){
+      tabIds.push(tabDict[list_sentences[ groups[i][j] ]]);
 
-        console.log(groups[i][j], list_sentences[ groups[i][j] ])
-      }
-      console.log(tabIds);
-      const groupId = await chrome.tabs.group({createProperties: {windowId: winId}, tabIds: tabIds});
+      console.log(groups[i][j], list_sentences[ groups[i][j] ])
     }
+    console.log("creating groups")
+    console.log(tabIds);
+    const groupId = await chrome.tabs.group({createProperties: {windowId: winId}, tabIds: tabIds});
+  }
 
-    await updateLogData();
-    window.close();
+  await updateLogData();
+  window.close();
 }
 
 function setLoadingScreen() {
