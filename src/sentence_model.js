@@ -61,7 +61,7 @@ class SentenceModel {
         var magnitudeB = Math.sqrt(this.dot(b, b));
     
         if (magnitudeA && magnitudeB) {
-            return dot(a, b) / (magnitudeA * magnitudeB);
+            return this.dot(a, b) / (magnitudeA * magnitudeB);
         } else {
             return false;
         } 
@@ -85,7 +85,7 @@ class SentenceModel {
     }
 
     // Form our groups based on the cosine_similarity_matrix
-    form_groups(cosine_similarity_matrix){
+    async form_groups(cosine_similarity_matrix, chromeManager){
         let dict_keys_in_group = {};
         let groups = [];
     
@@ -124,20 +124,24 @@ class SentenceModel {
         for(var i in groups){
             return_groups.push(Array.from(new Set(groups[i])));
         }
+
+        console.log(return_groups);
+        await chromeManager.createChromeGroups(groups); 
+        await chromeManager.updateLogData();
         return return_groups;
     }
 
     // Function to get groups based on similarity
-    get_similarity() {
+    async get_similarity(chromeManager) {
         let callback = async function(embeddings) {
     
             let cosine_similarity_m = this.cosine_similarity_matrix(embeddings.arraySync());
     
-            let groups = this.form_groups(cosine_similarity_m);
+            let groups = this.form_groups(cosine_similarity_m, chromeManager);
             this.groups = groups;
         };
     
-        this.get_embeddings(this.list_sentences, callback.bind(this));
+        this.get_embeddings(callback.bind(this))
     }
 
     optimizeGroups() {

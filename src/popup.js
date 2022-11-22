@@ -18,18 +18,18 @@ async function group() {
     // Create a new Chrome manager and get the user's open tabs
     let chromeManager = new ChromeManager();
     await chromeManager.queryTabs();
-    let tabTitles = chromeManager.getTabs()[1];
+    let tabTitles = chromeManager.getTabs();
 
     // Create a Tensorflow sentence model, and run it with the tab titles
     let sentenceModel = new SentenceModel(tabTitles);
-    sentenceModel.get_similarity();
+    sentenceModel.get_similarity(chromeManager);
 
-    let groups = sentenceModel.getGroups();
-    console.log(groups);
+    // let groups = sentenceModel.getGroups();
+    // console.log(groups);
 
     // Create Chrome groupings based on model groups
-    await chromeManager.createChromeGroups(groups); 
-    await chromeManager.updateLogData();
+    // await chromeManager.createChromeGroups(groups); 
+    // await chromeManager.updateLogData();
     //window.close();
 }
 

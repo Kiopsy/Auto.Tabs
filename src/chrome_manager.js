@@ -11,7 +11,7 @@ class ChromeManager {
   }
 
   getTabs() {
-    return (this.tabDict, this.tabTitles);
+    return this.tabTitles;
   }
 
   // Queries Chrome for opened tabs
