@@ -74,7 +74,7 @@ class ChromeManager {
         };
 
         data.push(logData);
-        chrome.storage.sync.set({'log': data}, function() {});
+        chrome.storage.sync.set({['log']: data}, function() {});
     });
   }
 
