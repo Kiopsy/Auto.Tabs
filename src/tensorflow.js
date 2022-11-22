@@ -175,6 +175,7 @@ async function createChromeGroups(groups) {
   window.close();
 }
 
+
 function setLoadingScreen() {
   let onOpen = document.getElementById("onOpen");
   let onLoading = document.getElementById("onLoading");
