@@ -1,4 +1,4 @@
-/* main container */
+/* main popup container */
 .main-container {
     width: 250px;
     height: 160px;
@@ -6,6 +6,7 @@
     font-size: 75%;
 }
 
+/* popup title */
 header 
 {
     text-align: left;
@@ -13,7 +14,7 @@ header
     font-size: 115%;
 }
 
-
+/* grouping button */
 #autoGroupBtn {
     color: white;
     background-color: #26619C;
@@ -27,7 +28,7 @@ header
     cursor: pointer;
 }
 
-#auto:hover {
+/* #auto:hover {
     color: white;
     background-color: #303C6C;
     width: 90%;
@@ -38,19 +39,22 @@ header
     margin-bottom: 20px;
     display: block;
     cursor: pointer;
-}
+} */
 
+/* loading screen w/ animation: starts off unloaded */
 #onLoading
 {
     display: none;
 }
 
+/* spinner object */
 .spinner {
     margin-left: 93px;
     margin-top: 53px;
     animation: rotator 1.8s linear infinite;
 }
 
+/* spinner rotation animation */
 @keyframes rotator {
     0% {
         transform: rotate(0deg);
@@ -60,6 +64,7 @@ header
    }
 }
 
+/* spinner path */
 #path {
     margin: auto;
     stroke-dasharray: 100;
@@ -67,6 +72,8 @@ header
     transform-origin: center;
     animation: dash 1.8s ease-in-out infinite, colors 7.2s ease-in-out infinite;
 }
+
+/* spinner path color animations */
 @keyframes colors {
     0% {
         stroke: #4285f4;
@@ -84,6 +91,8 @@ header
         stroke: #4285f4;
    }
 }
+
+/* spinner dash animations */
 @keyframes dash {
     0% {
         stroke-dashoffset: 100;

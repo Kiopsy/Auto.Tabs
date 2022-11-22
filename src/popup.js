@@ -1,4 +1,4 @@
-// file to work with popup's frontend
+// Working with popup's frontend
 
 // Shows loading screen
 function setLoadingScreen() {
