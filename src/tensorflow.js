@@ -10,6 +10,7 @@ class SentenceModel {
         this.list_sentences = sentences;
         this.threshold = thres;
         this.analyzing_text = false;
+        this.groups = [];
     }
 
     // setters & getters for sentences and threshold to run the model on
@@ -27,6 +28,10 @@ class SentenceModel {
 
     getThreshold() {
         return this.threshold;
+    }
+
+    getGroups() {
+        return this.groups;
     }
 
     // Tensorflow's model embeddings
@@ -50,7 +55,7 @@ class SentenceModel {
         return sum;
     }
 
-
+    // Calculates similarity between sentences based on their embeddings' dot product
     similarity(a, b) {
         var magnitudeA = Math.sqrt(dot(a, a));
         var magnitudeB = Math.sqrt(dot(b, b));
@@ -62,6 +67,7 @@ class SentenceModel {
         } 
     }
 
+    // Creates a cosine similarity matrix based on similarity of sentences' embeddings
     cosine_similarity_matrix(matrix){
         let cosine_similarity_matrix = [];
         for(let i=0;i<matrix.length;i++){
@@ -88,25 +94,26 @@ class SentenceModel {
             for(let j=i; j<this_row.length; j++){
                 if(i!=j){
                     let sim_score = cosine_similarity_matrix[i][j];
+
+                    // Check if similarity is within our threshold
                     if(sim_score > this.threshold){
-    
-                    let group_num;
-    
-                    if(!(i in dict_keys_in_group)){
-                        group_num = groups.length;
-                        dict_keys_in_group[i] = group_num;
-                    }else{
-                        group_num = dict_keys_in_group[i];
-                    }
-                    if(!(j in dict_keys_in_group)){
-                        dict_keys_in_group[j] = group_num;
-                    }
-    
-                    if(groups.length <= group_num){
-                        groups.push([]);
-                    }
-                    groups[group_num].push(i);
-                    groups[group_num].push(j);
+                        let group_num;
+        
+                        if(!(i in dict_keys_in_group)){
+                            group_num = groups.length;
+                            dict_keys_in_group[i] = group_num;
+                        }else{
+                            group_num = dict_keys_in_group[i];
+                        }
+                        if(!(j in dict_keys_in_group)){
+                            dict_keys_in_group[j] = group_num;
+                        }
+        
+                        if(groups.length <= group_num){
+                            groups.push([]);
+                        }
+                        groups[group_num].push(i);
+                        groups[group_num].push(j);
                     }
                 }
             }
@@ -121,7 +128,7 @@ class SentenceModel {
     }
 
     // Function to get groups based on similarity
-    async get_similarity(){
+    async get_similarity() {
         let callback = async function(embeddings) {
     
             let cosine_similarity_m = cosine_similarity_matrix(embeddings.arraySync());
@@ -131,6 +138,10 @@ class SentenceModel {
         };
     
         return await get_embeddings(this.list_sentences, callback.bind(this));
+    }
+
+    optimizeGroups() {
+
     }
 }
 

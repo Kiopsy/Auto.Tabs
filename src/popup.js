@@ -1,4 +1,4 @@
-// Popup frontend
+// Popup functionality
 
 // Shows loading screen
 function setLoadingScreen() {
