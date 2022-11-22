@@ -1,4 +1,4 @@
-// Working with popup's frontend
+// Popup frontend
 
 // Shows loading screen
 function setLoadingScreen() {
@@ -12,4 +12,4 @@ function setLoadingScreen() {
 // Set the group button's onClick to analyze the sentences
 document.getElementById("autoGroupBtn").addEventListener("click", analyzeSentences); 
 
-modules.export = setLoadingScreen;
+module.exports = {setLoadingScreen};
