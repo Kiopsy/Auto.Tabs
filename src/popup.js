@@ -18,10 +18,19 @@ async function group() {
     // Create a new Chrome manager and get the user's open tabs
     let chromeManager = new ChromeManager();
     await chromeManager.queryTabs();
-    let tabTitles = chromeManager.getTabs();
+    let tabTitles = chromeManager.getAllTabs();
+
+    // Get the threshold value inputted
+    let threshold = document.getElementById("threshold").value;
+    
+    if (isNaN(threshold) || threshold > 1 || threshold < 0) {
+        threshold = .5;
+    }
+
+    console.log(threshold);
 
     // Create a Tensorflow sentence model, and run it with the tab titles
-    let sentenceModel = new SentenceModel(tabTitles);
+    let sentenceModel = new SentenceModel(tabTitles, threshold);
     sentenceModel.get_similarity(chromeManager);
 
     // Bug with async functions

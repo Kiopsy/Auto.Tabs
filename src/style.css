@@ -1,7 +1,7 @@
 /* main popup container */
 .main-container {
     width: 250px;
-    height: 160px;
+    height: 234px;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 75%;
 }
@@ -14,11 +14,34 @@ header
     font-size: 115%;
 }
 
+input {
+    width: 70%;
+    height: 30px;
+    margin: auto;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #26619c;
+    display: block;
+    cursor: pointer;
+    outline: 0;
+}
+
+input:focus,
+input:active {
+    content: "";
+    border: none;
+    border-bottom: 3px solid #26619c;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+    outline: 0;
+}
+  
+
 /* grouping button */
 #autoGroupBtn {
     color: white;
     background-color: #26619C;
-    width: 90%;
+    width: 80%;
     text-align: center;
     border: none;
     height: 40px;
@@ -50,7 +73,7 @@ header
 /* spinner object */
 .spinner {
     margin-left: 93px;
-    margin-top: 53px;
+    margin-top: 93px;
     animation: rotator 1.8s linear infinite;
 }
 
