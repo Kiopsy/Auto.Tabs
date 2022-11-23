@@ -24,6 +24,7 @@ async function group() {
     let sentenceModel = new SentenceModel(tabTitles);
     sentenceModel.get_similarity(chromeManager);
 
+    // Bug with async functions
     // let groups = sentenceModel.getGroups();
     // console.log(groups);
 

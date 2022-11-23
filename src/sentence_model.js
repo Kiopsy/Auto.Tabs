@@ -141,7 +141,7 @@ class SentenceModel {
             let groups = this.form_groups(cosine_similarity_m, chromeManager);
             this.groups = groups;
 
-            window.close();
+            //window.close();
         };
     
         this.get_embeddings(callback.bind(this))

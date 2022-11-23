@@ -61,7 +61,7 @@ class ChromeManager {
     await chrome.storage.sync.get(['log'], function(result) {
 
         // result is a list of structs
-        let data = result.log;
+        let data = result.log ? result.log : [];
 
         console.log(result);
         console.log(data);
@@ -72,11 +72,12 @@ class ChromeManager {
         let logData = {
           date: date, 
           tabsOpen: tabLength,
-          // time: date.getHours() + ":" + date.getMinutes(),
         };
 
         data.push(logData);
-        chrome.storage.sync.set({'log': data}, function() {});
+        chrome.storage.sync.set({'log': data}, function() {
+          console.log('saved');
+        });
     });
   }
 
