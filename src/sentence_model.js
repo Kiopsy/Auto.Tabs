@@ -130,7 +130,7 @@ class SentenceModel {
         // TODO: Fix the async issues
         // Create the groups and update the log data
         await chromeManager.createChromeGroups(groups); 
-        await chromeManager.updateLogData(groups.length);
+        await chromeManager.updateLogData(groups.length, this.threshold);
         
         return return_groups;
     }

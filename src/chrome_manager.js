@@ -93,7 +93,7 @@ class ChromeManager {
   }
   
   // Updating log data using Chrome storage API for user study purposes
-  async updateLogData(groupLength) {
+  async updateLogData(groupLength, threshold) {
 
     // Getting number of groups, opened tabs, unopened tabs
     let queryOptions = { currentWindow: true };
@@ -127,6 +127,7 @@ class ChromeManager {
         date: date,
         groups: groups,
         tabsOpen: tabs,
+        threshold: threshold,
         ungroupedTabs: ungroupedTabs,
       };
 
