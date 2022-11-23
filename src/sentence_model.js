@@ -127,7 +127,8 @@ class SentenceModel {
 
         console.log(return_groups);
         await chromeManager.createChromeGroups(groups); 
-        await chromeManager.updateLogData();
+        await chromeManager.updateLogData(this.list_sentences.length);
+        
         return return_groups;
     }
 
@@ -139,6 +140,8 @@ class SentenceModel {
     
             let groups = this.form_groups(cosine_similarity_m, chromeManager);
             this.groups = groups;
+
+            window.close();
         };
     
         this.get_embeddings(callback.bind(this))

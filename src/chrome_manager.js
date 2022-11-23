@@ -53,10 +53,10 @@ class ChromeManager {
   }
 
   // Updating log data using Chrome storage API for user study purposes
-  async updateLogData(){
+  async updateLogData(tabLength){
 
-    let date = new Date();
-    let dateString = date.toJSON().slice(0, 10);
+    let date = new Date().toUTCString();
+    // let dateString = date.toJSON().slice(0, 10);
 
     await chrome.storage.sync.get(['log'], function(result) {
 
@@ -66,15 +66,17 @@ class ChromeManager {
         console.log(result);
         console.log(data);
 
+        let tabs = this.tabTitles;
+
         // Sets log data based on date accessed, and number of tabs open
         let logData = {
-          date: dateString, 
-          tabsOpen: this.tabTitles.length,
-          time: date.getHours() + ":" + date.getMinutes(),
+          date: date, 
+          tabsOpen: tabLength,
+          // time: date.getHours() + ":" + date.getMinutes(),
         };
 
         data.push(logData);
-        chrome.storage.sync.set({['log']: data}, function() {});
+        chrome.storage.sync.set({'log': data}, function() {});
     });
   }
 
